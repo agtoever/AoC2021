@@ -2,9 +2,8 @@ import typing
 import logging
 
 
-def _default_critical_msg(e: Exception) -> str:
-    return (f'Got {e.__class__.__name__}: "{e}" while pasing '
-            f'file "{filehandler.name}"')
+def _default_critical_msg(e: Exception, context: str = 'Unknown') -> str:
+    return f'Got {e.__class__.__name__}: "{e}" in context {context}.'
 
 
 def parse_input(filehandler: typing.TextIO,
@@ -30,7 +29,7 @@ def parse_input(filehandler: typing.TextIO,
             try:
                 lineitems = line.strip().split(separator)
             except Exception as e:
-                logging.critical(_default_critical_msg(e))
+                logging.critical(_default_critical_msg(e), filehandler.name)
         else:
             lineitems = [line.strip()]
 
@@ -44,7 +43,7 @@ def parse_input(filehandler: typing.TextIO,
             logging.debug(f'Added parsed line as: {result[-1]}')
 
         except Exception as e:
-            logging.critical(_default_critical_msg(e))
+            logging.critical(_default_critical_msg(e), filehandler.name)
 
     logging.info(f'Parsed {len(result)} values from {filehandler.name}.')
 
