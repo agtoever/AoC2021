@@ -4,7 +4,6 @@ See: https://adventofcode.com/2021/day/3
 """
 
 
-import AoC
 import logging
 import numpy
 logging.basicConfig(level=logging.INFO)
@@ -88,10 +87,10 @@ def calculate_co2_scrubber_rating(report: list) -> int:
 
 def main():
     with open(IMPORT_FILE, 'rt') as filehandler:
-        report = AoC.parse_input(filehandler, [list], '')
+        report = numpy.array([list(map(int, line.strip()))
+                              for line in filehandler])
 
-    # Convert to numpy array of integer values (0/1)
-    report = numpy.array([list(map(int, item[0])) for item in report])
+    logging.debug(f'{report=}')
 
     # Transpose, do a bincount an get the argmax/argmin for each row
     report_t = numpy.copy(report).transpose()
@@ -111,7 +110,4 @@ def main():
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-
     main()

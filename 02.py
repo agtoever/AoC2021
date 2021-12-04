@@ -4,7 +4,6 @@ See: https://adventofcode.com/2021/day/2
 """
 
 
-import AoC
 import logging
 import numpy
 logging.basicConfig(level=logging.INFO)
@@ -26,7 +25,9 @@ DIRECTIONS_2 = {
 
 def main():
     with open(IMPORT_FILE, 'rt') as filehandler:
-        route = AoC.parse_input(filehandler, [str, int], ' ')
+        route = [tuple([cast(item)
+                        for cast, item in zip([str, int], line.split(' '))])
+                 for line in filehandler]
 
     position = numpy.array(INITIAL_POSITION)
     for step in route:
@@ -48,7 +49,4 @@ def main():
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-
     main()
