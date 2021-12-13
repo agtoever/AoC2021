@@ -31,7 +31,7 @@ def import_energy(filename: str) -> np.array:
     # Get the path of this Python file
     path = Path(__file__).with_name(filename)
 
-     # Open file in the same path as this Python file
+    # Open file in the same path as this Python file
     with path.open('rt') as f:
         return np.array([[int(c) for c in list(s.strip())] for s in f])
 
