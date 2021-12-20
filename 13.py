@@ -95,7 +95,7 @@ def main():
         sheet = split_and_fold(sheet, *fold)
 
     print('\n*** Second part of the assignment ***')
-    print(f'Found the following sheet with dots:\n')
+    print('Found the following sheet with dots:\n')
     print(bool_print(sheet))
 
 
